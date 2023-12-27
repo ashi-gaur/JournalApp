@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>My Journal</title>
+
+  <style>
+    .footer {
+      font-size: 18px;
+      background-color: #333;
+      color: #fff;
+      padding: 30px 0;
+      border-radius: 10px;
+    }
+
+    .container {
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 50px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 25% 50% 25%;
+    }
+
+    .footer-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    .footer-menu li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .footer-menu li:last-child {
+      margin-right: 0;
+    }
+
+    .footer-menu a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .social-icons {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .social-icons li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .social-icons li:last-child {
+      margin-right: 0;
+    }
+    
+    .social-icons a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    .footer-bottom {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .footer-content {
+        grid-template-columns: repeat(1, 1fr);
+        row-gap: 20px;
+      }
+
+      .footer-menu {
+        text-align: left;
+      }
+
+      .footer-menu li {
+        display: block;
+        margin-bottom: 10px;
+      }
+    }
+    .text-center {
+  text-align: center;
+}
+
+
+    .attribute {
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="#">My Journal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="my_entries">My Entries</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="favourites">Favourites</a>
+          </li>
+        </ul>
+        <div>
+          <a class="nav-link text-white" href="new_entry">New Entry</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container text-center my-5">
+    <h1>Write what should not be forgotten!!!</h1>
+    <h6>Welcome to our journaling haven, where the magic of pen meets the canvas of introspection. Journaling is more
+      than just writing; it's a journey into self-discovery. Each word penned becomes a step towards understanding your
+      thoughts, dreams, and emotions. Why journal? Because within these pages lies the power of clarity and the
+      therapeutic release that writing provides. Your journal is a confidant, a witness to your growth, and a canvas for
+      your evolving story. It captures the nuances of your life, empowering you to navigate its complexities. So, let
+      your pen dance, thoughts flow, and welcome to a world where writing is a celebration of your extraordinary
+      journey.
+    </h6>
+    <br>
+    <img
+      src="data:image/png;base64,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"
+      width="360px" />
+  </div>
+
+  
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+         <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-sticker%2Fjournaling_9254879&psig=AOvVaw3oAG8h_3R1dRwR2uXMCEij&ust=1703588825732000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDYx7S9qoMDFQAAAAAdAAAAABAHc">
+        </div>
+        <div class="text-center">
+          <h1>
+            "The best time to start journaling is whenever you decide to." 
+          </h1>
+        </div>
+        
+        <div class="footer-social">
+          <ul class="social-icons">
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy;Create by <a href="">Ashi Singh Gaur</a> </p>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
